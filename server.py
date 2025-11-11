@@ -12,6 +12,11 @@ def home_page():
 def html_page(page_name):
     return render_template(page_name)
 
+@app.route('/notebooks/<string:notebook_name>')
+def show_notebook(notebook_name):
+    """Serve converted Jupyter notebooks as HTML"""
+    return render_template(f'notebooks/{notebook_name}')
+
 @app.route('/submit_form', methods=['POST', 'GET'])
 def submit_form():
     if request.method == 'POST':
@@ -34,6 +39,7 @@ def submit_form():
         return redirect(url_for('html_page', page_name='thankyou.html'))
     # optional: redirect on GET
     return redirect(url_for('home_page'))
+
 # How it was done before the route rework:
 
 # @app.route("/index.html")
@@ -43,19 +49,3 @@ def submit_form():
 # @app.route("/works.html")
 # def works():
 #     return render_template("./works.html")
-
-# @app.route("/work.html")
-# def work():
-#     return render_template("./work.html")
-
-# @app.route("/about.html")
-# def about_me():
-#     return render_template("./about.html")
-
-# @app.route("/contact.html")
-# def contact():
-#     return render_template("./contact.html")
-
-# @app.route("/thankyou.html")
-# def thankyou():
-#     return render_template("./thankyou.html")
